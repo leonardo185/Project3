@@ -3,7 +3,7 @@
 {% block title %} Register {% endblock %}
 
 {% block body %}
-  
+
   <h1>{{ message }}</h1>
   <form action="register" method="post">
     {% csrf_token %}
@@ -11,6 +11,12 @@
         <legend>Join Today</legend>
         {{form.as_p}}
     </fieldset>
-    <input type="Submit">
+    <button type="submit" name="button">Register</button>
   </form>
+  <br>
+  <div class="">
+    <small>
+      Already have an account? <a href="{% url 'login' %}">Sign In</a>
+    </small>
+  </div>
 {% endblock %}
