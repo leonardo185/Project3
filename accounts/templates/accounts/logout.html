@@ -1,0 +1,15 @@
+{% extends "orders/base.html" %}
+
+{% block title %} Logout {% endblock %}
+
+{% block body %}
+
+  <h1>You have been logged out.</h1>
+
+  <br>
+  <div class="">
+    <small>
+      <a href="{% url 'login' %}">Login Again?</a>
+    </small>
+  </div>
+{% endblock %}
