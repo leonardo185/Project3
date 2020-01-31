@@ -2,30 +2,22 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-
     {% load static %}
     <link rel="stylesheet" href="{% static 'Bootstrap/app.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.css">
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-
-
-
     {% if messages %}
       {% for message in messages %}
-        <h3>{{ message }}</h3>
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
       {% endfor %}
     {% endif %}
-
     {% include 'includes/_navbar.html' %}
-    {% block body %}
-
-    {% endblock %}
-
+    {% block body %}{% endblock %}
     <script type="text/javascript" src="{% static 'Bootstrap/app.js' %}">
-
     </script>
-
-
   </body>
 </html>

@@ -1,53 +1,19 @@
 {% extends "orders/base.html" %}
-
+{% load crispy_forms_tags %}
 {% block title %} Login {% endblock %}
-
-
-
 {% block body %}
-
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-<!-- {% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %} -->
-<div class="">
-
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-
-      <table>
-        <tr>
-            <td>{{ form.username.label_tag }}</td>
-            <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-            <td>{{ form.password.label_tag }}</td>
-            <td>{{ form.password }}</td>
-        </tr>
-      </table>
-
-      <input type="submit" value="login">
-      <!-- <input type="hidden" name="next" value="{{ next }}"> -->
-  </form>
-
-</div>
-<!-- {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="">Lost password?</a></p>
-
- -->
-
-<br>
-<div class="">
-  <small>
-    Need an account? <a href="{% url 'register' %}">Register Now</a>
-  </small>
-</div>
+<h1>{{ message }}</h1>
+<form action="login" method="post">
+  <div class="card container my-5" style="width: 30rem;">
+    <div class="card-body">
+      <h4 class="card-title">Sign In</h4>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary" name="button">Sign In</button>
+      <small class="ml-2">
+        Need an account? <a href="{% url 'register' %}">Sign Up Now</a>
+      </small>
+    </div>
+  </div>
+</form>
 {% endblock %}

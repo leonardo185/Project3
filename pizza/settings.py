@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
+    'crispy_forms',
     'orders.apps.OrdersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,7 +126,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'

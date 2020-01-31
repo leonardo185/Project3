@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.urls import reverse
 from .forms import UserRegistrationForm
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def register(request):
@@ -18,3 +20,7 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'accounts/register.html', {'form' : form})
+
+@login_required
+def profile(request):
+    return render(request, 'accounts/profile.html')

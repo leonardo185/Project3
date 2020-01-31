@@ -1,0 +1,8 @@
+{% extends "orders/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Login {% endblock %}
+{% block body %}
+  <div class="container my-4">
+    <h1>Welcome {{ user.username }}!</h1>
+  </div>
+{% endblock %}
