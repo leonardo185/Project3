@@ -23,4 +23,7 @@ def register(request):
 
 @login_required
 def profile(request):
+
+    print(request.user)
+
     return render(request, 'accounts/profile.html')

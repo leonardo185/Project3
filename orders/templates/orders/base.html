@@ -4,8 +4,12 @@
     <meta charset="utf-8">
     {% load static %}
     <link rel="stylesheet" href="{% static 'Bootstrap/app.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/Profile/profile.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.css">
     <title>{% block title %}{% endblock %}</title>
+
+    {% block head %}{% endblock %}
+
   </head>
   <body>
     {% if messages %}

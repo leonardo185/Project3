@@ -2,7 +2,92 @@
 {% load crispy_forms_tags %}
 {% block title %} Login {% endblock %}
 {% block body %}
-  <div class="container my-4">
-    <h1>Welcome {{ user.username }}!</h1>
+  <div class="container">
+    <div class="card my-4 pt-4 pb-4 px-3">
+        <div class="card-body">
+          <div class="card-title mx-1">
+            <h2>{{ user.username }}'s Account</h2>
+          </div>
+          <hr>
+        </div>
+        <div class="container">
+          <div class="row row-cols-1 row-cols-md-3 px-2">
+              <!-- Your orders -->
+              <a class="link" href="#">
+                <div class="col mb-4 ">
+                  <div class="card">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">Your Orders</h3>
+                      <p class="card-text">Track, return or buy things again</p>
+                    </div>
+                  </div>
+                </div>
+             </a>
+              <!-- Login and Security -->
+              <a class="link" href="#">
+                <div class="col mb-4 ">
+                  <div class="card">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">Login and Security</h3>
+                      <p class="card-text">Edit login, name, mobile number etc</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <!-- Your Address -->
+              <a class="link" href="#">
+                <div class="col mb-4 ">
+                  <div class="card">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">Your Addresses</h3>
+                      <p class="card-text">Edit addresses for orders and gifts</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <!-- Your Store -->
+              <a class="link" href="#">
+                <div class="col mb-4 ">
+                  <div class="card">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">Your Store</h3>
+                      <p class="card-text">Edit Stock, Prices, Quantity etc</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <!-- Payment Options -->
+              <a class="link" href="#">
+                <div class="col mb-4 ">
+                  <div class="card">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">Payment Options</h3>
+                      <p class="card-text">Edit or add payment methods</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <!-- Support -->
+              <a class="link" href="#">
+                <div class="col mb-4 ">
+                  <div class="card">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">Support</h3>
+                      <p class="card-text">Contact or speak with help desk</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+          </div>
+        </div>
+    </div>
   </div>
+
+
 {% endblock %}
