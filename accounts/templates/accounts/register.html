@@ -1,17 +1,19 @@
 {% extends "orders/base.html" %}
-
+{% load crispy_forms_tags %}
 {% block title %} Register {% endblock %}
-
 {% block body %}
-  <h1>Register</h1>
-  <form action="register" method="post">
-    {% csrf_token %}
-    <input type="text" name="first_name" value="" placeholder="First Name"><br>
-    <input type="text" name="last_name" value="" placeholder="Last Name"><br>
-    <input type="text" name="username" value="" placeholder="Username"><br>
-    <input type="text" name="email" value="" placeholder="Email"><br>
-    <input type="password" name="password" value="" placeholder="Passwprd"><br>
-    <input type="text" name="password_again" value="" placeholder="Password Again"><br>
-    <button type="submit" name="button">Submit</button>
-  </form>
+<h1>{{ message }}</h1>
+<form action="register" method="post">
+  <div class="card container my-4" style="width: 30rem;">
+    <div class="card-body">
+      <h4 class="card-title">Join Today</h4>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary" name="button">Register</button>
+      <small class="ml-2">
+        Already have an account? <a href="{% url 'login' %}">Sign In</a>
+      </small>
+    </div>
+  </div>
+</form>
 {% endblock %}

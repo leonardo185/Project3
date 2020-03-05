@@ -1,47 +1,29 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth.models import User, auth
+#from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.contrib import messages
+from django.urls import reverse
+from .forms import UserRegistrationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def register(request):
 
     if request.method == 'POST':
-
-        try:
-            first_name = request.POST['first_name']
-            last_name = request.POST['last_name']
-            username = request.POST['username']
-            email = request.POST['email']
-            password = request.POST['password']
-            password_again = request.POST['password_again']
-
-
-            # Input check.
-            input = {
-                "first_name" : first_name,
-                "last_name" : last_name,
-                "username" : username,
-                "email" : email,
-                "password" : password,
-                "password_again" : password_again,
-
-            }
-
-            if input["password"] == input["password_again"]:
-                if User.objects.filter(username = username):
-                    print("Username is taken.")
-                elif User.objects.filter(email = email):
-                    print("email  is taken")
-                else:
-                    user = User.objects.create_user(username = input["username"], password = input["password"], email = input["email"], first_name = input["first_name"], last_name = input["last_name"])
-                    user.save()
-                    print(f"user created")
-                    return redirect('/')
-            else:
-                return redirect('/')
-        except KeyError:
-            return render(request, "accounts/register.html", {"message": "Incomplete Credentials"})
-
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('login')
     else:
-        return render(request, "accounts/register.html")
+        form = UserRegistrationForm()
+    return render(request, 'accounts/register.html', {'form' : form})
+
+@login_required
+def profile(request):
+
+    print(request.user)
+
+    return render(request, 'accounts/profile.html')
