@@ -30,8 +30,15 @@ class Item(models.Model):
     quantity = models.PositiveIntegerField(blank=False, default=None)
     item_height = models.PositiveSmallIntegerField(blank=False)
     item_width = models.PositiveSmallIntegerField(blank=False)
-    item_lenght = models.PositiveSmallIntegerField(blank=False)
+    item_length = models.PositiveSmallIntegerField(blank=False)
     item_price = models.DecimalField(max_digits= 8, decimal_places=2, blank=False)
+    item_pic_1 = models.ImageField(default=None, blank=False, upload_to='item_pics')
+    item_pic_2 = models.ImageField(default=None, blank=False, upload_to='item_pics')
+    item_pic_3 = models.ImageField(default=None, blank=False, upload_to='item_pics')
+    item_pic_4 = models.ImageField(default=None, upload_to='item_pics')
+    item_pic_5 = models.ImageField(default=None, upload_to='item_pics')
+    item_pic_6 = models.ImageField(default=None, upload_to='item_pics')
+    item_pic_7 = models.ImageField(default=None, upload_to='item_pics')
 
     def __str__(self):
         return f'{self.id}-{self.title}-{self.brand}-{self.category}'
