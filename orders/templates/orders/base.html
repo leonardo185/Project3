@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="{% static 'accounts/Profile/profile.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.css">
     <title>{% block title %}{% endblock %}</title>
-
     {% block head %}{% endblock %}
-
   </head>
+  
   <body>
     {% if messages %}
       {% for message in messages %}

@@ -24,7 +24,6 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user-circle mr-2"></i>Profile</a>
-              <a class="dropdown-item" href="#"><i class="fas fa-luggage-cart mr-2"></i>Sell on Paw's</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-power-off mr-2"></i>Logout</a>
             </div>
@@ -34,9 +33,24 @@
             <a class="nav-link" href="{% url 'cart' %}"><i class="fas fa-shopping-bag mr-2"></i>Cart</a>
           </li>
           {% else %}
-            <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-user mx-1"></i>Login</a>
+          </li>
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle mr-5" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user mx-1"></i>Register
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'register' %}"><i class="fas fa-user-circle mr-2"></i>Register as a User</a>
+              <a class="dropdown-item" href="{% url 'dealer_register' %}"><i class="fas fa-luggage-cart mr-2"></i>Register Dealership</a>
+            </div>
+          </li>
+
+            <!-- <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-user mx-1"></i>Login</a>
-            </li>
+            </li> -->
           {% endif %}
         </ul>
       </div>

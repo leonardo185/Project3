@@ -12,10 +12,11 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
 class Dealer(models.Model):
-    company_name = models.CharField(max_length=100, blank=False)
-    phone_number = PhoneNumberField(blank=False)
+    company_name = models.CharField(max_length=100, blank=False,unique=True)
+    phone_number = PhoneNumberField(blank=False, unique=True)
     email = models.EmailField(max_length=100, blank=False)
     address = models.TextField(blank=False)
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.id}-{self.company_name}-{self.email}-{self.phone_number}-{self.address}'
