@@ -6,11 +6,17 @@
     <link rel="stylesheet" href="{% static 'Bootstrap/app.css' %}">
     <link rel="stylesheet" href="{% static 'accounts/Profile/profile.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.css">
+
     <title>{% block title %}{% endblock %}</title>
     {% block head %}{% endblock %}
   </head>
-  
+
   <body>
+
+    {% block my_styles %}{% endblock %}
+    {% block my_scripts %}{% endblock %}
+
+
     {% if messages %}
       {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -19,8 +25,17 @@
       {% endfor %}
     {% endif %}
     {% include 'includes/_navbar.html' %}
+
     {% block body %}{% endblock %}
-    <script type="text/javascript" src="{% static 'Bootstrap/app.js' %}">
-    </script>
+
+    {% include 'includes/_footer.html' %}
+
+
+
+
+    <script type="text/javascript" src="{% static 'Bootstrap/app.js' %}"></script>
+
+
+
   </body>
 </html>

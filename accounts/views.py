@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.urls import reverse
 from .forms import UserRegistrationForm, DealerRegisterForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
+from .models import Item
+
 
 # Create your views here.
 
@@ -38,3 +42,10 @@ def dealer_register(request):
 @login_required
 def profile(request):
     return render(request, 'accounts/profile.html')
+
+@login_required
+def load_items(request):
+    data = {
+        'items': Item.objects.all()
+    }
+    return JsonResponse(data)
