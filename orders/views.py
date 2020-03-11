@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from accounts.models import Item
@@ -12,6 +12,18 @@ class PostsView(ListView):
     context_object_name = 'items'
     template_name = 'orders/index.html'
     ordering = ['title']
+
+def item(request, item_id):
+    try:
+        item = Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
+        raise Http404("Item does not exist")
+    context = {
+        "item": item
+    }
+
+    return render(request, "orders/item.html", context)
+
 
 
 def register(request):

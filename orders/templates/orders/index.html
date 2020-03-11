@@ -64,7 +64,7 @@
             <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">{{ item.title }}</a>
+                <a href="{% url 'description' item.id %}">{{ item.title }}</a>
               </h4>
               <h5>&#8377 {{ item.item_price }}</h5>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
@@ -92,15 +92,11 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-  </div>
-
-
   {% block my_scripts %}
     {% load static %}
     <script type="text/javascript" src="{% static 'Jquery/jquery-3.4.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'Waypoints/jquery.waypoints.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'Waypoints/infinite.min.js' %}"></script>
-
   {% endblock %}
 
   <script>

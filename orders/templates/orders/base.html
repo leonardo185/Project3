@@ -12,10 +12,8 @@
   </head>
 
   <body>
-
     {% block my_styles %}{% endblock %}
     {% block my_scripts %}{% endblock %}
-
 
     {% if messages %}
       {% for message in messages %}
@@ -24,18 +22,13 @@
         </div>
       {% endfor %}
     {% endif %}
+
     {% include 'includes/_navbar.html' %}
 
     {% block body %}{% endblock %}
 
-    {% include 'includes/_footer.html' %}
-
-
-
-
     <script type="text/javascript" src="{% static 'Bootstrap/app.js' %}"></script>
 
-
-
+    {% include 'includes/_footer.html' %}
   </body>
 </html>
