@@ -38,11 +38,20 @@ def add_to_cart(request, item_id):
     except Item.DoesNotExist:
         return render(request, "orders/error.html", {"message": "No flight."})
 
+
+
     add_item = Cart()
-    add_item.user = user_id
-    add_item.item = int(item_id)
-    add_item.quantity = quantity
-    add_item.save()
+
+    if(Cart.objects.filter(user=user_id, item=item_id).exists()):
+        fetch_quantity = Cart.objects.get(user=user_id, item=item_id).quantity
+        print(fetch_quantity)
+        update_quantity = fetch_quantity+quantity
+        Cart.quantity = Cart.objects.filter(user=user_id, item=int(item_id)).update(quantity=update_quantity)
+    else:
+        add_item.user = user_id
+        add_item.item = int(item_id)
+        add_item.quantity = quantity
+        add_item.save()
 
     return HttpResponseRedirect(reverse("description", args=(item_id,)))
 
