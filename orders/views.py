@@ -27,7 +27,6 @@ def item(request, item_id):
 
     return render(request, "orders/item.html", context)
 
-
 def add_to_cart(request, item_id):
     try:
         user_id = int(request.user.id)
@@ -39,33 +38,29 @@ def add_to_cart(request, item_id):
     except Item.DoesNotExist:
         return render(request, "orders/error.html", {"message": "No flight."})
 
-
-
     add_item = Cart()
 
 
-
-
     if(Cart.objects.filter(user=user_id, item=item_id).exists()):
-        fetch_quantity = Cart.objects.get(user=user_id, item=item_id).quantity
-        print(fetch_quantity)
-        update_quantity = fetch_quantity+quantity
-        Cart.quantity = Cart.objects.filter(user=user_id, item=int(item_id)).update(quantity=update_quantity)
-        messages.success(request, f'Quantity updated in your cart.')
+        if(quantity <= Item.objects.get(id=item_id).quantity):
+            fetch_quantity = Cart.objects.get(user=user_id, item=item_id).quantity
+            print(fetch_quantity)
+            update_quantity = fetch_quantity+quantity
+            Cart.quantity = Cart.objects.filter(user=user_id, item=int(item_id)).update(quantity=update_quantity)
+            messages.success(request, f'Quantity updated in your cart.')
+        else:
+            messages.warning(request, f'Quantity could not be updated because of insufficiant inventory.')
     else:
-        add_item.user = user_id
-        add_item.item = int(item_id)
-        add_item.quantity = quantity
-        add_item.save()
-        messages.success(request, f'Item added to your cart.')
-
+        if(quantity <= Item.objects.get(id=item_id).quantity):
+            add_item.user = user_id
+            add_item.item = int(item_id)
+            add_item.quantity = quantity
+            add_item.save()
+            messages.success(request, f'Item added to your cart.')
+        else:
+            messages.warning(request, f'Quantity could not be updated because of insufficiant inventory.')
 
     return HttpResponseRedirect(reverse("description", args=(item_id,)))
-
-
-
-
-
 
 def register(request):
     return render(request, "orders/register.html")
