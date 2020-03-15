@@ -7,7 +7,6 @@ from .forms import UserRegistrationForm, DealerRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from .models import Item
 
 
 # Create your views here.

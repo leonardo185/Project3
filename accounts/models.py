@@ -33,16 +33,7 @@ class Item(models.Model):
     item_width = models.PositiveSmallIntegerField(blank=False)
     item_length = models.PositiveSmallIntegerField(blank=False)
     item_price = models.DecimalField(max_digits= 8, decimal_places=2, blank=False)
-    
+
 
     def __str__(self):
         return f'{self.id}-{self.title}-{self.brand}-{self.category}'
-
-
-class Cart(models.Model):
-    cart_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cart_user", default=None)
-    cart_item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="cart_item", default=None)
-    quantity = models.PositiveSmallIntegerField(blank=False, default=None)
-
-    def __str__(self):
-        return f'{self.id}-{self.cart_user}'
