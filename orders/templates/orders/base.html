@@ -19,6 +19,7 @@
     {% block my_styles %}{% endblock %}
     {% block my_scripts %}{% endblock %}
 
+    {% include 'includes/_navbar.html' %}
     {% if messages %}
       {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -26,7 +27,6 @@
         </div>
       {% endfor %}
     {% endif %}
-    {% include 'includes/_navbar.html' %}
 
     {% block body %}{% endblock %}
 

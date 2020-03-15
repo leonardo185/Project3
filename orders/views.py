@@ -5,6 +5,7 @@ from accounts.models import Item
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
 from django.urls import reverse
+from django.contrib import messages
 
 from .models import Cart
 
@@ -42,16 +43,22 @@ def add_to_cart(request, item_id):
 
     add_item = Cart()
 
+
+
+
     if(Cart.objects.filter(user=user_id, item=item_id).exists()):
         fetch_quantity = Cart.objects.get(user=user_id, item=item_id).quantity
         print(fetch_quantity)
         update_quantity = fetch_quantity+quantity
         Cart.quantity = Cart.objects.filter(user=user_id, item=int(item_id)).update(quantity=update_quantity)
+        messages.success(request, f'Quantity updated in your cart.')
     else:
         add_item.user = user_id
         add_item.item = int(item_id)
         add_item.quantity = quantity
         add_item.save()
+        messages.success(request, f'Item added to your cart.')
+
 
     return HttpResponseRedirect(reverse("description", args=(item_id,)))
 
