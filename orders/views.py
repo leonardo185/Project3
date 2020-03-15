@@ -32,14 +32,12 @@ def add_to_cart(request, item_id):
         user_id = int(request.user.id)
         quantity = int(request.POST["quantity"])
         print(item)
-
     except KeyError:
         return render(request, "orders/error.html", {"message": "No selection."})
     except Item.DoesNotExist:
         return render(request, "orders/error.html", {"message": "No flight."})
 
     add_item = Cart()
-
 
     if(Cart.objects.filter(user=user_id, item=item_id).exists()):
         if(quantity <= Item.objects.get(id=item_id).quantity):
