@@ -2,6 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import Item
+from .models import Cart
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
 from django.urls import reverse
@@ -9,6 +10,7 @@ from django.contrib import messages
 
 from .models import Cart
 
+#The Index Page.
 class PostsView(ListView):
     model = Item
     paginate_by = 6
@@ -16,6 +18,7 @@ class PostsView(ListView):
     template_name = 'orders/index.html'
     ordering = ['title']
 
+#The Product Description.
 def item(request, item_id):
     try:
         item = Item.objects.get(pk=item_id)
@@ -27,9 +30,13 @@ def item(request, item_id):
 
     return render(request, "orders/item.html", context)
 
+
+#Add to Cart Button.
+@login_required
 def add_to_cart(request, item_id):
     try:
         user_id = int(request.user.id)
+        item = Item.objects.get(pk=item_id)
         quantity = int(request.POST["quantity"])
         print(item)
     except KeyError:
@@ -51,7 +58,7 @@ def add_to_cart(request, item_id):
     else:
         if(quantity <= Item.objects.get(id=item_id).quantity):
             add_item.user = user_id
-            add_item.item = int(item_id)
+            add_item.item = item
             add_item.quantity = quantity
             add_item.save()
             messages.success(request, f'Item added to your cart.')
@@ -60,15 +67,28 @@ def add_to_cart(request, item_id):
 
     return HttpResponseRedirect(reverse("description", args=(item_id,)))
 
+# Register Page.
 def register(request):
     return render(request, "orders/register.html")
 
+# Login Page.
 def login(request):
     return render(request, "orders/login.html")
 
+
+
+# The Cart Page.
 @login_required
 def cart(request):
-    return render(request, "orders/cart.html")
+    user = request.user.id
+    context = {
+
+        "cart_items" : Cart.objects.filter(user=user)
+    }
+
+    return render(request, "orders/cart.html", context)
+
+
 
 def credit(request):
     return render(request, "orders/credit.html")

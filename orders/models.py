@@ -5,7 +5,7 @@ from accounts.models import Item
 
 class Cart(models.Model):
     user = models.IntegerField()
-    item = models.IntegerField(default=None)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, default=None, blank=True, related_name="cart_item")
     quantity = models.PositiveIntegerField(default=None)
 
     def __str__(self):

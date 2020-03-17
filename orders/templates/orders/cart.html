@@ -4,8 +4,8 @@
 
 {% block body %}
   <div class="container my-4">
-    <h1>
-      <p>This is the Cart webpage.</p>
-    </h1>
+    {% for item in cart_items %}
+      <p>{{ item.item }}</p>
+    {% endfor %}
   </div>
 {% endblock %}
