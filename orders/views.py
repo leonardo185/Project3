@@ -81,7 +81,6 @@ def login(request):
 @login_required
 def cart(request):
     user = request.user.id
-
     fetch_cart = Cart.objects.filter(user=user)
 
     subtotal = 0
@@ -99,12 +98,13 @@ def cart(request):
         "tax" : tax,
         "total": total,
     }
-
-
-
-
     return render(request, "orders/cart.html", context)
 
+@login_required
+def checkout(request):
+    user = request.user.id
+
+    return render(request,"orders/checkout.html")
 
 
 def credit(request):
