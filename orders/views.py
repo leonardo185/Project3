@@ -81,10 +81,27 @@ def login(request):
 @login_required
 def cart(request):
     user = request.user.id
-    context = {
 
-        "cart_items" : Cart.objects.filter(user=user)
+    fetch_cart = Cart.objects.filter(user=user)
+
+    subtotal = 0
+    tax = 10
+    shipping = 10
+    for fetch_cart_item in fetch_cart:
+        subtotal += fetch_cart_item.quantity * fetch_cart_item.item.item_price
+
+    total = subtotal + tax + shipping
+
+    context = {
+        "cart_items" : Cart.objects.filter(user=user),
+        "subtotal" : subtotal,
+        "shipping" : shipping,
+        "tax" : tax,
+        "total": total,
     }
+
+
+
 
     return render(request, "orders/cart.html", context)
 

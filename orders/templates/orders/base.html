@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{% static 'Bootstrap/app.css' %}">
     <link rel="stylesheet" href="{% static 'accounts/Profile/profile.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.css">
+    <!-- <link rel="stylesheet" href="{% static 'Cart/cart.css' %}"> -->
+
+    {% block style %}{% endblock %}
+    {% block my_styles %}{% endblock %}
 
     <script src="{% static 'Jquery/jquery-3.4.1.min.js' %}">
 
@@ -16,7 +20,7 @@
   </head>
 
   <body>
-    {% block my_styles %}{% endblock %}
+
     {% block my_scripts %}{% endblock %}
 
     {% include 'includes/_navbar.html' %}
