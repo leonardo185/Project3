@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import Item
-from .models import Cart
+from .models import Cart, Orders
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
 from django.urls import reverse
@@ -67,16 +67,6 @@ def add_to_cart(request, item_id):
 
     return HttpResponseRedirect(reverse("description", args=(item_id,)))
 
-# Register Page.
-def register(request):
-    return render(request, "orders/register.html")
-
-# Login Page.
-def login(request):
-    return render(request, "orders/login.html")
-
-
-
 # The Cart Page.
 @login_required
 def cart(request):
@@ -88,7 +78,6 @@ def cart(request):
     shipping = 10
     for fetch_cart_item in fetch_cart:
         subtotal += fetch_cart_item.quantity * fetch_cart_item.item.item_price
-
     total = subtotal + tax + shipping
 
     context = {
@@ -100,11 +89,73 @@ def cart(request):
     }
     return render(request, "orders/cart.html", context)
 
+
 @login_required
 def checkout(request):
     user = request.user.id
+    if request.method == 'POST':
+        first_name = str(request.POST["first_name"])
+        last_name = str(request.POST["last_name"])
+        email = str(request.POST["email"])
+        number = request.POST["number"]
+        first_address = str(request.POST["address_1"])
+        second_address = request.POST.get('address_2', False)
+        country = str(request.POST["country"])
+        state = str(request.POST["state"])
+        zip = request.POST["zip"]
+
+        print(f'The firstName:{first_name}')
+        order = Orders()
+
+        order.user = user
+        order.first_name = first_name
+        order.last_name = last_name
+        order.email = email
+        order.address_1 = first_address
+        order.address_2 = second_address
+        order.country = country
+        order.state = state
+        order.zip = zip
+
+        order.save()
+        messages.success(request, f'Items in your cart have been ordered..')
+        return HttpResponseRedirect(reverse("index"))
+
+    else:
+        return render(request,"orders/checkout.html")
+
 
     return render(request,"orders/checkout.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Register Page.
+def register(request):
+    return render(request, "orders/register.html")
+
+# Login Page.
+def login(request):
+    return render(request, "orders/login.html")
+
+
+
+
 
 
 def credit(request):
